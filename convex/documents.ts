@@ -264,7 +264,7 @@ export const duplicate = mutation({
             title: clone.title,
             userId,
             isArchived: false,
-            isPublished: clone.isPublished,
+            isPublished: false,
             content: clone.content,
             coverImage: clone.coverImage,
             icon: clone.icon

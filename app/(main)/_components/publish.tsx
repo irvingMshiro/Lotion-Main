@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Check, Copy } from "lucide-react";
 import { useMutation } from "convex/react";
 import { useState } from "react";
+import { Share2 } from "lucide-react";
 
 interface PublishProps{
     initialData: Doc<"documents">
@@ -71,20 +72,25 @@ export const Publish = ({
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button>
-                    Publish
-                    {initialData.isPublished && (
-                        <Globe className="text-sky-500 w-4 h-4 ml-2" />
+                <Button variant="ghost">
+                    {initialData.isPublished ? (
+                        <>
+                            <p className="text-sky-600">Shared</p>               
+                        </>
+                        ) : (
+                        <>
+                            <p className="text-slate-500">Share</p>
+                            {/* <Share2 className="h-4 w-4 ml-1"/> */}
+                        </>
                     )}
                 </Button>
             </PopoverTrigger>
 
-            <PopoverContent className="w-72" align="end" alignOffset={8} forceMount>
+            <PopoverContent className="w-80" align="end" alignOffset={8} forceMount>
                 {initialData.isPublished ? (
                     <div className="space-y-4">
                         <div className="flex items-center gap-x-2">
-                            <Globe className="text-sky-500 animate-pulse h-4 w-4" />
-                            <p className="text-xs font-medium text-sky-500"> This note is live on web.</p>
+                            <p className="text-xs font-medium text-sky-500"> Share your Note by Copying the Link</p>
                         </div>
 
                         <div className="flex items-center">
@@ -99,19 +105,18 @@ export const Publish = ({
                         </div>
 
                         <Button size="sm" className="w-full text-xs" disabled={isSubmitting}  onClick={onUnPublish}>
-                            Unpublish
+
+                            Stop Sharing
                         </Button>
                     </div>
                 ):(
                     <div className="flex flex-col items-center justify-center">
-                        <Globe className="h-8 w-8 text-muted-foreground mb-2" />
+                        <p className="text-sm font-medium mb-2"> Share your Note </p>
 
-                        <p className="text-sm font-medium mb-2"> Publish this note </p>
-
-                        <span className="text-xs text-muted-foreground mb-4"> Share your work with others. </span>   
+                        {/* <span className="text-xs text-muted-foreground mb-4"> Share your work with others. </span>   */}
 
                         <Button disabled={isSubmitting} onClick={onPublish} className="w-full text-xs" size="sm">
-                            Publish
+                            Start Sharing
                         </Button>
                     </div>
                 )}
